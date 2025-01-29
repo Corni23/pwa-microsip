@@ -1,4 +1,6 @@
 import "../styles/login.css";
+import { Link } from 'react-router-dom';
+
 
 const Login = () => {
   return (
@@ -35,7 +37,7 @@ const Login = () => {
             </label>
             <a href="https://example.com/connection-help">¿Necesitas ayuda?</a>
           </div>
-          <button type="submit">Conectar</button>
+                    <Link to='/home' >Conectar</Link>
           <div className="register-link">
             ¿No tienes credenciales? <a href="https://example.com/request-access">Solicitar Acceso</a>
           </div>
