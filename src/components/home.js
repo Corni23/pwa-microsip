@@ -43,7 +43,8 @@ const Home = () => {
           <p className="module-description">
             Administre órdenes de venta, proveedores y seguimiento de pedidos.
           </p>
-          <a href="https://example.com/purchases" className="module-button">Acceder</a>
+          <Link  to="/sales" className="module-button">Acceder</Link>
+
         </div>
       </div>
     </div>

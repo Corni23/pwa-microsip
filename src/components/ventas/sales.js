@@ -1,11 +1,9 @@
-import "../../styles/inventory.css";
+import "../../styles/sales.css";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-const Inventory = () => {
+const Sales = () => {
   const [almacenesSalida, setAlmacenesSalida] = useState([]);
-  const [almacenesDestino, setAlmacenesDestino] = useState([]);
-  const [conceptos, setConceptos] = useState([]);
   const [busquedaClave, setBusquedaClave] = useState("")
   const [articulosTabla, setArticulosTabla] = useState([]);
 
@@ -19,11 +17,6 @@ const Inventory = () => {
 
         if (result?.almacenes) {
           setAlmacenesSalida(result.almacenes);
-          setAlmacenesDestino(result.almacenes);
-        }
-
-        if (result?.conceptos) {
-          setConceptos(result.conceptos);
         }
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -68,7 +61,6 @@ const Inventory = () => {
       console.error("Error en la solicitud:", error);
     }
   };
-
   const manejarEnter = (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); // Evita recarga en caso de estar en un form
@@ -83,7 +75,12 @@ const Inventory = () => {
       <div className="container">
         <div className="inventory-container">
           <div className="header">
-            <h1>Gestión de Inventario</h1>
+            <h1>Ventas</h1>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="cliente">Cliente:</label>
+            <input type="text" id="cliente" placeholder="Nombre del cliente" />
           </div>
 
           <div className="form-group">
@@ -98,31 +95,6 @@ const Inventory = () => {
             </select>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="almacenDestino">Almacén Destino:</label>
-            <select id="almacenDestino">
-              <option value="">Seleccione un almacén</option>
-              {almacenesDestino.map((almacen) => (
-                <option key={almacen.ALMACEN_ID} value={almacen.ALMACEN_ID}>
-                  {almacen.NOMBRE}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="conceptos">Concepto:</label>
-            <select id="conceptos">
-              <option value="">Seleccione un Concepto</option>
-              {conceptos.map((concepto) => (
-                <option key={concepto.CONCEPTO_IN_ID} value={concepto.CONCEPTO_IN_ID}>
-                  {concepto.NOMBRE}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Campo de búsqueda SOLO activa con ENTER */}
           <div className="form-group">
             <label htmlFor="busqueda">Buscar Producto por Clave:</label>
             <input
@@ -168,11 +140,10 @@ const Inventory = () => {
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
     </div>
   );
 };
 
-export default Inventory;
+export default Sales;
