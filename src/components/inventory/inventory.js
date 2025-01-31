@@ -8,13 +8,20 @@ const Inventory = () => {
   const [conceptos, setConceptos] = useState([]);
   const [busquedaClave, setBusquedaClave] = useState("")
   const [articulosTabla, setArticulosTabla] = useState([]);
+  // Nuevos estados para los selects
+  const [almacenSalidaId, setAlmacenSalidaId] = useState("");
+  const [almacenDestinoId, setAlmacenDestinoId] = useState("");
+  const [conceptoId, setConceptoId] = useState("");
+  // Estados de los otros campos
+  const [fecha, setFecha] = useState(new Date().toISOString().slice(0, 16));
+  const [folio, setFolio] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [centroCostoId, setCentroCostoId] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://xpnqlt26-5224.usw3.devtunnels.ms/api/Microsip/datos"
-        );
+        const response = await fetch("https://xpnqlt26-5224.usw3.devtunnels.ms/api/Microsip/datos");
         const result = await response.json();
 
         if (result?.almacenes) {
@@ -32,6 +39,8 @@ const Inventory = () => {
 
     fetchData();
   }, []);
+
+  
 
   const buscarArticuloPorClave = async () => {
     if (!busquedaClave.trim()) return; // No ejecutar si está vacío
@@ -127,12 +136,19 @@ const Inventory = () => {
             <label htmlFor="busqueda">Buscar Producto por Clave:</label>
             <input
               type="text"
-              id="busqueda"
+              id="busqueda"///*
               placeholder="Escriba la clave del producto y presione Enter..."
               value={busquedaClave}
               onChange={(e) => setBusquedaClave(e.target.value)}
               onKeyDown={manejarEnter} // Solo buscará cuando se presione Enter
             />
+          </div>
+
+          {/* Campo para la descripcion */}
+
+
+          <div>
+            <div>descripcion</div>
           </div>
 
           <div className="inventory-table-container">

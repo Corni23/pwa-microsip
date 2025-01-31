@@ -4,8 +4,28 @@ import React, { useEffect, useState } from "react";
 
 const Sales = () => {
   const [almacenesSalida, setAlmacenesSalida] = useState([]);
-  const [busquedaClave, setBusquedaClave] = useState("")
+  const [clientes, setClientes] = useState([]);
+  const [busquedaClave, setBusquedaClave] = useState("");
   const [articulosTabla, setArticulosTabla] = useState([]);
+
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await fetch(
+          "https://xpnqlt26-5224.usw3.devtunnels.ms/api/Microsip/obtener-clientes"
+        );
+        const result = await response.json();
+        if (Array.isArray(result)) {
+          setClientes(result);
+        } else {
+          console.error("El resultado no es un arreglo válido.");
+        }
+      } catch (error) {
+        console.error("Error al obtener los clientes:", error);
+      }
+    };
+    fetchClientes();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,8 +99,21 @@ const Sales = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="cliente">Cliente:</label>
+            <label htmlFor="cliente">Folio:</label>
             <input type="text" id="cliente" placeholder="Nombre del cliente" />
+            
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="cliente">Cliente:</label>
+            <select id="cliente">
+              <option value="">Seleccione un cliente</option>
+              {clientes.map((cliente) => (
+                <option key={cliente.clienteId} value={cliente.clienteId}>
+                  {cliente.nombre}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group">
@@ -93,6 +126,11 @@ const Sales = () => {
                 </option>
               ))}
             </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="decripcion">Descripcion:</label>
+            <input type="text" id="decripcion" placeholder="Descripcion" />
+            
           </div>
 
           <div className="form-group">
